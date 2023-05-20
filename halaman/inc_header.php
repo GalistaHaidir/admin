@@ -32,7 +32,7 @@ if(!$koneksi){
 
   <style>
     .mx-auto {
-      width: 1500px;
+      width: 1200px;
     }
     .card {
       margin-top: 20px;
