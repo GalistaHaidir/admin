@@ -81,7 +81,7 @@ body {
     font-weight: bold;
 }
 .heading span{
-    color: #7387C4;
+    color: #3a9ee5;
 }
 #about .card{
     border-radius: 10px;
@@ -100,6 +100,55 @@ body {
         font-size: 15px;
     }
     #about{
+        height: 120vh;
+    }
+}
+
+/* halaman section start */
+
+
+#halaman{
+    width: 100%;
+    height: 90vh;
+    background-image:url(../images/gambarhalaman.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 100%;
+}
+#halaman{
+    width: 100%;
+    height: 100vh;
+}
+#halaman .container{
+    padding-top: 100px;
+}
+.heading{
+    text-align: center;
+    margin-bottom: 50px;
+    color: black;
+    font-size: 30px;
+    font-weight: bold;
+}
+.heading span{
+    color: #3a9ee5;
+}
+#halaman .card{
+    border-radius: 10px;
+}
+#halaman .card img{
+    border-radius: 10px;
+}
+
+@media screen and (max-width:982px){
+    #halaman p{
+        font-size: 8px;
+    }
+}
+@media screen and (max-width:766px){
+    #halaman p{
+        font-size: 15px;
+    }
+    #halaman{
         height: 120vh;
     }
 }
