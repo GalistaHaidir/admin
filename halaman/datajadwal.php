@@ -1,8 +1,7 @@
 <?php include("inc_header.php"); ?>
 
 <?php
-$idjadwalguru = "";
-$nip = "";
+$idjadwal = "";
 $idmapel = "";
 $namakelas = "";
 $hari = "";
@@ -18,7 +17,7 @@ if (isset($_GET['op'])) {
 }
 if ($op == 'delete') {
     $id = $_GET['id'];
-    $sql1 = "delete from jadwalguru where id = '$id'";
+    $sql1 = "delete from jadwal where id = '$id'";
     $q1 = mysqli_query($koneksi, $sql1);
     if ($q1) {
         $sukses = "Berhasil hapus data";
@@ -29,11 +28,10 @@ if ($op == 'delete') {
 
 if ($op == 'edit') {
     $id = $_GET['id'];
-    $sql1 = "select * from jadwalguru where id = '$id'";
+    $sql1 = "select * from jadwal where id = '$id'";
     $q1 = mysqli_query($koneksi, $sql1);
     $r1 = mysqli_fetch_array($q1);
-    $idjadwalguru = $r1['idjadwalguru'];
-    $nip = $r1['nip'];
+    $idjadwal = $r1['idjadwal'];
     $idmapel = $r1['idmapel'];
     $namakelas = $r1['namakelas'];
     $hari = $r1['hari'];
@@ -47,16 +45,15 @@ if ($op == 'edit') {
 
 //create
 if (isset($_POST['simpan'])) {
-    $idjadwalguru = $_POST['idjadwalguru'];
-    $nip = $_POST['nip'];
+    $idjadwal = $_POST['idjadwal'];
     $idmapel = $_POST['idmapel'];
     $namakelas = $_POST['namakelas'];
     $hari = $_POST['hari'];
     $jam = $_POST['jam'];
 
-    if ($idjadwalguru && $nip && $idmapel && $namakelas && $hari && $jam) {
+    if ($idjadwal && $idmapel && $namakelas && $hari && $jam) {
         if ($op == 'edit') { //update
-            $sql1 = "update jadwalguru set idjadwalguru = '$idjadwalguru', nip = '$nip', idmapel = '$idmapel', namakelas = '$namakelas', hari = '$hari', jam = '$jam' where id = '$id'";
+            $sql1 = "update jadwal set idjadwal = '$idjadwal', idmapel = '$idmapel', namakelas = '$namakelas', hari = '$hari', jam = '$jam' where id = '$id'";
             $q1 = mysqli_query($koneksi, $sql1);
             if ($q1) {
                 $sukses = "Data Berhasil update";
@@ -64,7 +61,7 @@ if (isset($_POST['simpan'])) {
                 $error = "Data gagal update";
             }
         } else { //insert
-            $sql1 = "insert into jadwalguru(idjadwalguru,nip,idmapel,namakelas,hari,jam) values ('$idjadwalguru', '$nip', '$idmapel', '$namakelas', '$hari', '$jam')";
+            $sql1 = "insert into jadwal(idjadwal,idmapel,namakelas,hari,jam) values ('$idjadwal', '$idmapel', '$namakelas', '$hari', '$jam')";
             $q1 = mysqli_query($koneksi, $sql1);
             if ($q1) {
                 $sukses = "berhasil memasukkan data baru";
@@ -84,7 +81,7 @@ if (isset($_POST['simpan'])) {
     <!-- memasukkan data-->
     <div class="card">
         <div class="card-header">
-            Create / Edit Data Kelas
+            Create / Edit Jadwal
         </div>
         <div class="card-body">
             <?php
@@ -94,7 +91,7 @@ if (isset($_POST['simpan'])) {
                     <?php echo $error ?>
                 </div>
                 <?php
-                header("refresh:5;url=datakelas.php");
+                header("refresh:5;url=datajadwal.php");
             }
             ?>
             <?php
@@ -104,20 +101,14 @@ if (isset($_POST['simpan'])) {
                     <?php echo $sukses ?>
                 </div>
                 <?php
-                header("refresh:5;url=datakelas.php");
+                header("refresh:5;url=datajadwal.php");
             }
             ?>
             <form action="" method="POST">
             <div class="mb-3 row">
-                    <label for="idjadwalguru" class="col-sm-2 col-form-label">ID Jadwal Guru</label>
+                    <label for="idjadwal" class="col-sm-2 col-form-label">ID Jadwal</label>
                     <div class="col-sm-10">
-                        <input type="text" class="form-control" id="idjadwalguru" name="idjadwalguru" value="<?php echo $idjadwalguru ?>">
-                    </div>
-                </div>
-                <div class="mb-3 row">
-                    <label for="nip" class="col-sm-2 col-form-label">NIP</label>
-                    <div class="col-sm-10">
-                        <input type="text" class="form-control" id="nip" name="nip" value="<?php echo $nip ?>">
+                        <input type="text" class="form-control" id="idjadwal" name="idjadwal" value="<?php echo $idjadwal ?>">
                     </div>
                 </div>
                 <div class="mb-3 row">
@@ -211,15 +202,14 @@ if (isset($_POST['simpan'])) {
 <!--mengeluarkan data-->
 <div class="card">
     <div class="card-header text-white bg-secondary">
-        Data Jadwal Guru
+        Data Jadwal
     </div>
     <div class="card-body">
         <table class="table">
             <thead>
                 <tr>
                     <th scope="col">#</th>
-                    <th scope="col">ID Jadwal Guru</th>
-                    <th scope="col">NIP Guru</th>
+                    <th scope="col">ID Jadwal</th>
                     <th scope="col">ID Mapel</th>
                     <th scope="col">Nama Kelas</th>
                     <th scope="col">Hari</th>
@@ -227,28 +217,23 @@ if (isset($_POST['simpan'])) {
                 </tr>
             <tbody>
                 <?php
-                $sql2 = "select * from jadwalguru order by id desc";
+                $sql2 = "select * from jadwal order by id desc";
                 $q2 = mysqli_query($koneksi, $sql2);
                 $urut = 1;
                 while ($r2 = mysqli_fetch_array($q2)) {
                     $id = $r2['id'];
-                    $idjadwalguru = $r2['idjadwalguru'];
-                    $nip = $r2['nip'];
+                    $idjadwal = $r2['idjadwal'];
                     $idmapel = $r2['idmapel'];
                     $namakelas = $r2['namakelas'];
                     $hari = $r2['hari'];
                     $jam = $r2['jam'];
-
                     ?>
                     <tr>
                         <th scope="row">
                             <?php echo $urut++ ?>
                         </th>
                         <td scope="row">
-                            <?php echo $idjadwalguru ?>
-                        </td>
-                        <td scope="row">
-                            <?php echo $nip ?>
+                            <?php echo $idjadwal ?>
                         </td>
                         <td scope="row">
                             <?php echo $idmapel ?>
@@ -263,10 +248,10 @@ if (isset($_POST['simpan'])) {
                             <?php echo $jam ?>
                         </td>
                         <td scope="row">
-                            <a href="datajadwalguru.php?op=edit&id=<?php echo $id ?>"><button type="button"
+                            <a href="datajadwal.php?op=edit&id=<?php echo $id ?>"><button type="button"
                                     class="btn btn-warning">Edit</button>
                             </a>
-                            <a href="datajadwalguru.php?op=delete&id=<?php echo $id ?>"
+                            <a href="datajadwal.php?op=delete&id=<?php echo $id ?>"
                                 onclick="return confirm('Yakin hapus data?')"><button type="button"
                                     class="btn btn-danger">Delete</button></a>
                         </td>
