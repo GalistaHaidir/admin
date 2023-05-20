@@ -1,0 +1,2 @@
+<?php include("inc_header.php")?>
+<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Numquam alias vel voluptate! Recusandae suscipit deserunt hic nihil dicta! Fuga, obcaecati vitae doloribus est hic voluptatum pariatur quis sint repellendus laboriosam?</p>
