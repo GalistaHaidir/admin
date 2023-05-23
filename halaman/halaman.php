@@ -18,8 +18,3 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-</section>
-=======
-</section>
->>>>>>> ad7b3e291d03b71f11ce65aa25b114c0b91959fa
